@@ -1,0 +1,46 @@
+<html>
+<body>
+	<div id='background'>
+        <div id='character' style='position:absolute; top:100px; left:450px; background-image: url("img/down1.png"); width:59px; height:86px;'></div>
+    </div>
+    <script type="text/javascript">
+        var leftValue = 450, topValue = 100, direction = 'down', step = 1;
+
+        function update(){ //turns 1 into 2 and 2 into 1, whenever function is used,,, press down once to get down pic 1 press again and will get down pic 2 since steps are changing with document below with step variable.
+            if(step == 1){
+                step = 2;
+            }
+            else {
+                step = 1;
+            }
+            document.getElementById("character").style.left = leftValue+ "px"; //see notes below same but for left
+            document.getElementById("character").style.top = topValue + "px"; //matches element id "character" under div to style in this case top to leftValue variable + px (for movement start points and rate of change)
+            document.getElementById("character").style.backgroundImage = "url('img/"+direction+step+".png')";  //matches element id character under div to style background image under variable direction, will match key movements to picture left key to left pic. Also will change step variable if pressed consecutively (for matching pictures to direction with function below)
+        }
+
+	    document.onkeydown = function(e){
+            console.log(e);
+            if(e.keyCode==37 && leftValue > 0) { //LEFT with boundry 0 to 500
+                leftValue = leftValue - 10;
+                direction = 'left'; //left image when moving left
+
+            }
+            else if (e.keyCode == 39 && leftValue < 500) {//right with boundry 0 to 500
+                leftValue = leftValue + 10;
+                direction = 'right'; //right image when moving right
+
+            }
+            else if(e.keyCode == 40 && topValue < 500) {//DOWN with boundry 0 to 500
+                topValue = topValue +10;
+                direction = 'down';
+               
+            }
+            else if(e.keyCode == 38 && topValue > 0) {//UP with boundry 0 to 500
+                topValue = topValue -10;
+                direction = 'top'; //top image to match top under div when moving up
+            }
+            update();
+        }
+    </script>
+</body>
+</html>
